@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Challenge_1.Presentation.Controllers
 {
@@ -8,6 +9,8 @@ namespace Challenge_1.Presentation.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     [AllowAnonymous]
+    [Produces("application/json")]
+    [SwaggerTag("Health Checks - Verificação da saúde da API e dependências")]
     public class HealthController : ControllerBase
     {
         private readonly HealthCheckService _healthService;
@@ -17,8 +20,13 @@ namespace Challenge_1.Presentation.Controllers
             _healthService = healthService;
         }
 
-        // 🔹 Liveness: verifica se a API está de pé
         [HttpGet("live")]
+        [SwaggerOperation(
+            Summary = "Verifica se a API está ativa",
+            Description = "Executa uma verificação de 'liveness' para confirmar se o serviço está de pé e respondendo às requisições.")]
+        [SwaggerResponse(statusCode: 200, description: "A API está ativa e funcionando")]
+        [SwaggerResponse(statusCode: 503, description: "A API está indisponível ou falhando")]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno ao processar a verificação")]
         public async Task<IActionResult> Live(CancellationToken ct)
         {
             var report = await _healthService.CheckHealthAsync(r => r.Tags.Contains("live"), ct);
@@ -40,8 +48,13 @@ namespace Challenge_1.Presentation.Controllers
                 : StatusCode(503, result);
         }
 
-        // 🔹 Readiness: verifica se o Oracle está acessível
         [HttpGet("ready")]
+        [SwaggerOperation(
+            Summary = "Verifica se a API e dependências estão prontas",
+            Description = "Executa uma verificação de 'readiness' para confirmar se os serviços essenciais (como o banco Oracle) estão acessíveis e prontos para uso.")]
+        [SwaggerResponse(statusCode: 200, description: "A API e dependências estão saudáveis")]
+        [SwaggerResponse(statusCode: 503, description: "Algum serviço dependente está indisponível")]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno ao processar a verificação")]
         public async Task<IActionResult> Ready(CancellationToken ct)
         {
             var report = await _healthService.CheckHealthAsync(r => r.Tags.Contains("ready"), ct);
