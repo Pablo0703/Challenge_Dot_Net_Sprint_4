@@ -58,7 +58,7 @@ namespace Application.Services
             {
                 var entidade = new FilialEntity
                 {
-                    Id = dto.Id,
+                    
                     Nome = dto.Nome,
                     Cnpj = dto.Cnpj,
                     Telefone = dto.Telefone,

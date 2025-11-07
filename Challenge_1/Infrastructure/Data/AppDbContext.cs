@@ -25,20 +25,33 @@ namespace Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            
-            modelBuilder.HasSequence<long>("SEQ_MOTTU_MOTO", schema: "RM556834");
-
-            modelBuilder.Entity<MotoEntity>(entity =>
+            if (Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
             {
-                entity.ToTable("MOTTU_MOTO");
+                modelBuilder.HasSequence<long>("SEQ_MOTTU_MOTO", schema: "RM556834");
 
-                entity.HasKey(e => e.Id);
+                modelBuilder.Entity<MotoEntity>(entity =>
+                {
+                    entity.ToTable("MOTTU_MOTO");
 
-                entity.Property(e => e.Id)
-                      .HasColumnName("ID_MOTO")
-                      .ValueGeneratedOnAdd() 
-                      .HasDefaultValueSql("RM556834.SEQ_MOTTU_MOTO.NEXTVAL"); 
-            });
+                    entity.HasKey(e => e.Id);
+
+                    entity.Property(e => e.Id)
+                          .HasColumnName("ID_MOTO")
+                          .ValueGeneratedOnAdd()
+                          .HasDefaultValueSql("RM556834.SEQ_MOTTU_MOTO.NEXTVAL");
+                });
+            }
+            else
+            {
+                // Configuração simplificada para testes com InMemory
+                modelBuilder.Entity<MotoEntity>(entity =>
+                {
+                    entity.HasKey(e => e.Id);
+                    entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                });
+            }
         }
+
     }
 }
+

@@ -9,7 +9,7 @@ namespace Domain.Entities
     {
         [Key]
         [Column("ID_HISTORICO")]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [Required]

@@ -60,7 +60,7 @@ namespace Application.Services
             {
                 var entidade = new HistoricoLocalizacaoEntity
                 {
-                    Id = dto.Id,
+                    
                     IdMoto = dto.IdMoto,
                     IdMotociclista = dto.IdMotociclista,
                     IdZonaPatio = dto.IdZonaPatio,

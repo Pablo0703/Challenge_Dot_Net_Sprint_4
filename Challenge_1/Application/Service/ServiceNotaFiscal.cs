@@ -135,6 +135,7 @@ namespace Application.Services
         public async Task<IEnumerable<NotaFiscalDTO>> GetByNumeroAsync(string numero)
         {
             var lista = await _context.NotasFiscais
+                .AsNoTracking() // ✅ evita conflito de tracking em testes e cenários concorrentes
                 .Where(n => n.Numero.ToLower().Contains(numero.ToLower()))
                 .ToListAsync();
 
@@ -151,5 +152,6 @@ namespace Application.Services
                 CnpjFornecedor = n.CnpjFornecedor
             });
         }
+
     }
 }

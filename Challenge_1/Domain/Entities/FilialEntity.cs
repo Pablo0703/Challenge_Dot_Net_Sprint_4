@@ -8,7 +8,7 @@ namespace Domain.Entities
     {
         [Key]
         [Column("ID_FILIAL")]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [Required]
