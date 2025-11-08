@@ -1,60 +1,81 @@
-# Challenge 2025 - Advanced Business Development with .NET
+Challenge 2025 - Advanced Business Development with .NET
+Grupo
 
-## Grupo
+Nome: Pablo Lopes Doria de Andrade
+RM: 556834
 
-* Nome: Pablo Lopes Doria de Andrade
-* RM: 556834
+Nome: Vinicius Leopoldino de Oliveira
+RM: 557047
 
-* Nome: Vinicius Leopoldino de Oliveira
-* RM: 557047
+Justificativa da Arquitetura
 
----
-🏗️ Justificativa da Arquitetura
-
-O projeto foi desenvolvido em .NET 8 (Web API) com arquitetura em camadas (Domain, Application, Infrastructure, Presentation).
+O projeto foi desenvolvido em .NET 8 (Web API) com arquitetura em camadas (Clean Architecture), garantindo separação de responsabilidades e facilidade de manutenção.
 
 Challenge_1/
-│── Application/        → serviços e interfaces
-│── Domain/             → entidades e regras de negócio
-│── Doc/                → samples usados no Swagger (request e response)
-│── Infrastructure/     → contexto do banco de dados (Oracle + EF Core)
-│── Presentation/       → controllers, DTOs, documentação via Swagger
-│── Challenge_1.sln     → Solution
+│── Application/ → serviços, interfaces e regras de aplicação
+│── Domain/ → entidades e regras de negócio
+│── Doc/ → samples usados no Swagger (request e response)
+│── Infrastructure/ → contexto do banco de dados (Oracle + EF Core)
+│── Presentation/ → controllers, DTOs e documentação via Swagger
+│── Challenge_1.sln → solution principal
 
+Principais características implementadas
 
-Além disso, foram implementados:
-✅ Paginação nos endpoints de listagem
-✅ Swagger com exemplos de requests/responses
-✅ DTOs para evitar exposição direta de entidades
-✅ Validações via DataAnnotations
-✅ HATEOAS nos endpoints principais
-✅ Tratamento de erros
+Arquitetura em camadas (Domain, Application, Infrastructure e Presentation)
 
-🛠️ Tecnologias Utilizadas
+Paginação em endpoints de listagem
+
+Swagger documentado com exemplos de request e response
+
+DTOs para isolar as entidades de domínio
+
+Validações utilizando DataAnnotations
+
+Implementação de HATEOAS nos endpoints principais
+
+Tratamento global de erros
+
+Testes unitários e de integração com xUnit
+
+Autenticação via JWT
+
+Health Checks (verificação de disponibilidade da API e do Oracle)
+
+Endpoints de Machine Learning (ML.NET) para predição e recomendação
+
+Tecnologias Utilizadas
 
 .NET 8 (C#)
 
-Entity Framework Core
+Entity Framework Core 8
 
 Oracle Database
 
 Swagger (Swashbuckle)
 
-xUnit (para testes)
+ML.NET (Machine Learning)
 
-▶️ Como Executar
-1. Pré-requisitos
+xUnit (Testes unitários e integração)
 
-Visual Studio 2022 ou VS Code
+JWT Authentication
+
+Health Checks
+
+Moq (para mocking em testes)
+
+Como Executar
+Pré-requisitos
+
+Visual Studio 2022 ou Visual Studio Code
 
 .NET 8 SDK
 
-Banco de dados Oracle
+Banco de Dados Oracle (conexão FIAP)
 
-2. Clonar o repositório
-git clone https://github.com/Pablo0703/Challenge_3_Dot_net.git
+Clonar o repositório
+git clone https://github.com/Pablo0703/Challenge_Dot_Net_Sprint_4.git
 
-3. Configurar conexão
+Configurar conexão com o banco de dados
 
 No arquivo appsettings.json:
 
@@ -62,15 +83,15 @@ No arquivo appsettings.json:
   "DefaultConnection": "User Id=RMXXXXX;Password=XXXXX;Data Source=oracle.fiap.com.br:1521/ORCL"
 }
 
-4. Rodar a aplicação
+Executar a aplicação
 dotnet run
 
 
 A API estará disponível em:
-👉 https://localhost:7030/swagger
+https://localhost:7030/swagger
 
-📑 Endpoints e Exemplos
-🔹 Moto
+Endpoints e Exemplos
+Moto
 
 GET /api/ControllerMoto
 
@@ -80,7 +101,7 @@ GET /api/ControllerMoto/porPlaca?placa=ABC1234
 
 POST /api/ControllerMoto
 
-Request (POST)
+Request:
 
 {
   "idTipo": 2,
@@ -97,10 +118,7 @@ Request (POST)
   "idNotaFiscal": null
 }
 
-<img width="1769" height="628" alt="image" src="https://github.com/user-attachments/assets/2b8a342a-c3d4-4abb-ab87-a673710d0f26" />
-
-
-🔹 Pátio
+Pátio
 
 GET /api/ControllerPatio
 
@@ -110,7 +128,7 @@ GET /api/ControllerPatio/porNome?nome=Pátio
 
 POST /api/ControllerPatio
 
-Request (POST)
+Request:
 
 {
   "idFilial": 1,
@@ -120,32 +138,7 @@ Request (POST)
   "ativo": "S"
 }
 
-<img width="1767" height="558" alt="image" src="https://github.com/user-attachments/assets/000bbb01-38e0-403c-8dae-e51477300053" />
-
-
-🔹 Zona de Pátio
-
-GET /api/ControllerZonaPatio
-
-GET /api/ControllerZonaPatio/{id}
-
-GET /api/ControllerZonaPatio/porNome?nomeZona=Zona A
-
-POST /api/ControllerZonaPatio
-
-Request (POST)
-
-{
-  "idPatio": 1,
-  "nomeZona": "Zona A",
-  "tipoZona": "ESTACIONAMENTO",
-  "capacidade": 20
-}
-
-<img width="1766" height="547" alt="image" src="https://github.com/user-attachments/assets/6307ffa7-fc66-4173-a0a4-0e46521dd494" />
-
-
-🔹 Endereço
+Endereço
 
 GET /api/ControllerEndereco
 
@@ -155,7 +148,7 @@ GET /api/ControllerEndereco/porCidade?cidade=São Paulo
 
 POST /api/ControllerEndereco
 
-Request (POST)
+Request:
 
 {
   "logradouro": "Av. Paulista",
@@ -168,10 +161,7 @@ Request (POST)
   "pais": "Brasil"
 }
 
-<img width="1742" height="1258" alt="image" src="https://github.com/user-attachments/assets/c62680bb-d713-4dd9-a7a9-9db91440a50c" />
-
-
-🔹 Filial
+Filial
 
 GET /api/ControllerFilial
 
@@ -181,7 +171,7 @@ GET /api/ControllerFilial/porNome?nome=SP
 
 POST /api/ControllerFilial
 
-Request (POST)
+Request:
 
 {
   "nome": "Mottu São Paulo",
@@ -192,10 +182,26 @@ Request (POST)
   "idEndereco": 1
 }
 
-<img width="1772" height="580" alt="image" src="https://github.com/user-attachments/assets/f43de448-280a-4382-ad83-888d2ae26e1f" />
+Localização da Moto
 
+GET /api/ControllerLocalizacaoMoto
 
-🔹 Histórico de Localização
+GET /api/ControllerLocalizacaoMoto/{id}
+
+GET /api/ControllerLocalizacaoMoto/porIdMoto?idMoto=1
+
+POST /api/ControllerLocalizacaoMoto
+
+Request:
+
+{
+  "idMoto": 1,
+  "idZona": 1,
+  "dataHoraEntrada": "2025-05-01T08:00:00",
+  "dataHoraSaida": null
+}
+
+Histórico de Localização
 
 GET /api/ControllerHistoricoLocalizacao
 
@@ -205,7 +211,7 @@ GET /api/ControllerHistoricoLocalizacao/porIdMoto?idMoto=1
 
 POST /api/ControllerHistoricoLocalizacao
 
-Request (POST)
+Request:
 
 {
   "idMoto": 1,
@@ -217,158 +223,141 @@ Request (POST)
   "idStatusOperacao": 1
 }
 
-<img width="1759" height="716" alt="image" src="https://github.com/user-attachments/assets/d102abe5-6b31-4c7b-adef-2502472ddfe6" />
+Health Check
 
+GET /api/v1/Health/live
+Verifica se a API está ativa.
 
-🔹 Localização Moto
+GET /api/v1/Health/ready
+Verifica se o Oracle e dependências estão disponíveis.
 
-GET /api/ControllerLocalizacaoMoto
+Autenticação (JWT)
 
-GET /api/ControllerLocalizacaoMoto/{id}
+POST /api/v1/Auth/login
 
-GET /api/ControllerLocalizacaoMoto/porIdMoto?idMoto=1
-
-POST /api/ControllerLocalizacaoMoto
-
-Request (POST)
-
-{
-  "idMoto": 1,
-  "idZona": 1,
-  "dataHoraEntrada": "2025-05-01T08:00:00",
-  "dataHoraSaida": null
-}
-
-<img width="1779" height="542" alt="image" src="https://github.com/user-attachments/assets/2ea8528e-af45-4067-9f1f-944e566c4831" />
-
-
-🔹 Motociclista
-
-GET /api/ControllerMotociclista
-
-GET /api/ControllerMotociclista/{id}
-
-GET /api/ControllerMotociclista/porNome?nome=João
-
-POST /api/ControllerMotociclista
-
-Request (POST)
+Request:
 
 {
-  "nome": "João da Silva",
-  "cpf": "12345678902",
-  "cnh": "SP12345777",
-  "dataValidadeCnh": "2030-01-01T00:00:00",
-  "telefone": "(11)98765-4333",
-  "email": "joaodasilva@email.com",
-  "dataCadastro": "2025-04-25T00:00:00",
-  "ativo": "S",
-  "idEndereco": 1
+  "username": "admin",
+  "password": "12345"
 }
 
-<img width="1768" height="605" alt="image" src="https://github.com/user-attachments/assets/a63aa21e-35e1-4288-b395-9792c9990236" />
 
-
-🔹 Nota Fiscal
-
-GET /api/ControllerNotaFiscal
-
-GET /api/ControllerNotaFiscal/{id}
-
-GET /api/ControllerNotaFiscal/porNumero?numero=12345
-
-POST /api/ControllerNotaFiscal
-
-Request (POST)
+Response:
 
 {
-  "numero": "12348",
-  "serie": "1",
-  "modelo": "55",
-  "chaveAcesso": "35190304552144000125550010012345678901234570",
-  "dataEmissao": "2023-03-01T00:00:00",
-  "valorTotal": 150000,
-  "fornecedor": "Mottu Motors",
-  "cnpjFornecedor": "12345678000199"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 
-<img width="1774" height="619" alt="image" src="https://github.com/user-attachments/assets/8d5f015f-a64f-461a-9223-91ef60b23d4d" />
+Predição (ML.NET)
 
+POST /api/v1/Predicao/consumo
+Prediz o consumo médio (km/L) de uma moto.
 
-🔹 Status Moto
-
-GET /api/ControllerStatusMoto
-
-GET /api/ControllerStatusMoto/{id}
-
-GET /api/ControllerStatusMoto/porNome?nome=Disponível
-
-POST /api/ControllerStatusMoto
-
-Request (POST)
+Request:
 
 {
-  "id": 9,
-  "descricao": "Disponível",
-  "disponivel": "S"
+  "cilindrada": 160,
+  "peso": 120,
+  "velocidadeMedia": 80
 }
 
-<img width="1772" height="465" alt="image" src="https://github.com/user-attachments/assets/d81c3225-2992-49fb-8508-7a6b0751a197" />
 
-
-🔹 Status Operação
-
-GET /api/ControllerStatusOperacao
-
-GET /api/ControllerStatusOperacao/{id}
-
-GET /api/ControllerStatusOperacao/porDescricao?descricao=Locação
-
-POST /api/ControllerStatusOperacao
-
-Request (POST)
+Response:
 
 {
-  "descricao": "Locação",
-  "tipoMovimentacao": "SAIDA"
+  "input": { "cilindrada": 160, "peso": 120, "velocidadeMedia": 80 },
+  "consumoPrevisto": 33.5,
+  "observacao": "Previsão gerada via modelo ML.NET"
 }
 
-🔹 Tipo Moto
 
-GET /api/TipoMoto
+POST /api/v1/Predicao/treinar
+Treina o modelo ML.NET com novos dados.
 
-GET /api/TipoMoto/{id}
-
-POST /api/TipoMoto
-
-Request (POST)
+Request:
 
 {
-  "descricao": "Mottu Super Sport",
-  "categoria": "Super Esportiva"
+  "cilindrada": 160,
+  "peso": 125,
+  "velocidadeMedia": 70,
+  "consumoReal": 32.1
 }
 
-<img width="1776" height="506" alt="image" src="https://github.com/user-attachments/assets/5a5aea58-eb2f-43c0-b66d-7697f45bee2d" />
+Recomendação (ML.NET)
+
+POST /api/v1/Recomendacao/moto
+Gera uma recomendação de moto para o usuário com base no perfil e afinidade.
+
+Request:
+
+{
+  "usuarioId": 1,
+  "motoId": 42
+}
 
 
-✅ Requisitos Atendidos
+Response:
 
- CRUD completo para todas as entidades
+{
+  "usuarioId": 1,
+  "motoId": 42,
+  "score": 0.873,
+  "observacao": "Score de afinidade gerado via modelo ML.NET"
+}
 
- Paginação nas listagens
+Requisitos Atendidos
 
- Swagger com exemplos de requests/responses
+CRUD completo para todas as entidades
 
- DTOs
+Paginação em listagens
 
- HATEOAS nos endpoints principais
+Swagger com exemplos e documentação
 
- Validações e tratamento de erros
+DTOs e validações
 
- Conexão com Oracle DB
+HATEOAS nos endpoints principais
 
-🧪 Testes
+Health Checks (liveness e readiness)
 
-Para rodar os testes:
+Autenticação JWT
 
+Endpoints com ML.NET (predição e recomendação)
+
+Testes unitários e de integração (xUnit + Moq)
+
+Conexão com Oracle Database
+
+Testes
+Executar os testes
 dotnet test
+
+
+Os testes cobrem:
+
+Criação e consulta de entidades via Services e Controllers
+
+Mock de dependências com Moq
+
+Verificações de status HTTP
+
+Testes de integração com WebApplicationFactory
+
+Cobertura dos endpoints de CRUD, ML.NET e autenticação
+
+Conclusão
+
+Este projeto atende a todos os requisitos da Sprint 4 - Advanced Business Development with .NET,
+demonstrando domínio em:
+
+Arquitetura multicamadas
+
+Integração com Oracle via EF Core
+
+Documentação e versionamento de API
+
+Machine Learning (ML.NET)
+
+Testes automatizados com xUnit
+
+Boas práticas de desenvolvimento e segurança (JWT, validações, Health Checks)
