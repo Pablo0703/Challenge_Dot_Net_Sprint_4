@@ -1,81 +1,74 @@
-Challenge 2025 - Advanced Business Development with .NET
-Grupo
+# Challenge 2025 - Advanced Business Development with .NET
 
-Nome: Pablo Lopes Doria de Andrade
-RM: 556834
+## Grupo
 
-Nome: Vinicius Leopoldino de Oliveira
-RM: 557047
+* Nome: Pablo Lopes Doria de Andrade
+* RM: 556834
 
-Justificativa da Arquitetura
+* Nome: Vinicius Leopoldino de Oliveira
+* RM: 557047
 
-O projeto foi desenvolvido em .NET 8 (Web API) com arquitetura em camadas (Clean Architecture), garantindo separação de responsabilidades e facilidade de manutenção.
+📢 Atualizações Sprint 4
+
+Durante a Sprint 4, o projeto foi expandido com novos recursos de segurança, monitoramento, inteligência artificial e automação de testes.
+As principais melhorias e implementações foram:
+
+✅ Autenticação JWT – inclusão de autenticação via token JWT Bearer, garantindo acesso seguro aos endpoints.
+✅ Versionamento da API – implementação do versionamento via URL (/api/v1/...).
+✅ Health Check – endpoint /health para verificar a integridade da aplicação e do banco Oracle.
+✅ Endpoint ML.NET – adicionado um endpoint com modelo de Machine Learning, integrando IA para previsão de dados.
+✅ Testes Automatizados (xUnit) – criação de testes unitários e de integração com boas práticas (Assert.IsType, async/await, Data).
+✅ Rate Limiting e Response Compression – para otimizar performance e segurança.
+✅ Pipeline CI/CD (Azure DevOps) – automação completa de build, testes e deploy da aplicação na nuvem.
+✅ Swagger Atualizado – documentação expandida com exemplos, modelos e responses detalhados.
+
+---
+🏗️ Justificativa da Arquitetura
+
+O projeto foi desenvolvido em .NET 8 (Web API) com arquitetura em camadas (Domain, Application, Infrastructure, Presentation).
 
 Challenge_1/
-│── Application/ → serviços, interfaces e regras de aplicação
-│── Domain/ → entidades e regras de negócio
-│── Doc/ → samples usados no Swagger (request e response)
-│── Infrastructure/ → contexto do banco de dados (Oracle + EF Core)
-│── Presentation/ → controllers, DTOs e documentação via Swagger
-│── Challenge_1.sln → solution principal
+│── Application/        → serviços e interfaces
+│── Domain/             → entidades e regras de negócio
+│── Doc/                → samples usados no Swagger (request e response)
+│── Infrastructure/     → contexto do banco de dados (Oracle + EF Core)
+│── Presentation/       → controllers, DTOs, documentação via Swagger
+│── Challenge_1.sln     → Solution
 
-Principais características implementadas
 
-Arquitetura em camadas (Domain, Application, Infrastructure e Presentation)
+Além disso, foram implementados:
+✅ Paginação nos endpoints de listagem
+✅ Swagger com exemplos de requests/responses
+✅ DTOs para evitar exposição direta de entidades
+✅ Validações via DataAnnotations
+✅ HATEOAS nos endpoints principais
+✅ Tratamento de erros
 
-Paginação em endpoints de listagem
-
-Swagger documentado com exemplos de request e response
-
-DTOs para isolar as entidades de domínio
-
-Validações utilizando DataAnnotations
-
-Implementação de HATEOAS nos endpoints principais
-
-Tratamento global de erros
-
-Testes unitários e de integração com xUnit
-
-Autenticação via JWT
-
-Health Checks (verificação de disponibilidade da API e do Oracle)
-
-Endpoints de Machine Learning (ML.NET) para predição e recomendação
-
-Tecnologias Utilizadas
+🛠️ Tecnologias Utilizadas
 
 .NET 8 (C#)
 
-Entity Framework Core 8
+Entity Framework Core
 
 Oracle Database
 
 Swagger (Swashbuckle)
 
-ML.NET (Machine Learning)
+xUnit (para testes)
 
-xUnit (Testes unitários e integração)
+▶️ Como Executar
+1. Pré-requisitos
 
-JWT Authentication
-
-Health Checks
-
-Moq (para mocking em testes)
-
-Como Executar
-Pré-requisitos
-
-Visual Studio 2022 ou Visual Studio Code
+Visual Studio 2022 ou VS Code
 
 .NET 8 SDK
 
-Banco de Dados Oracle (conexão FIAP)
+Banco de dados Oracle
 
-Clonar o repositório
-git clone https://github.com/Pablo0703/Challenge_Dot_Net_Sprint_4.git
+2. Clonar o repositório
+git clone https://github.com/Pablo0703/Challenge_3_Dot_net.git
 
-Configurar conexão com o banco de dados
+3. Configurar conexão
 
 No arquivo appsettings.json:
 
@@ -83,25 +76,83 @@ No arquivo appsettings.json:
   "DefaultConnection": "User Id=RMXXXXX;Password=XXXXX;Data Source=oracle.fiap.com.br:1521/ORCL"
 }
 
-Executar a aplicação
+4. Rodar a aplicação
 dotnet run
 
+🔹 Versionamento da API
+
+A partir da Sprint 4, todos os endpoints foram organizados com versionamento via URL, garantindo a compatibilidade entre versões futuras da aplicação.
+
+Exemplo de Endpoint (v1)
+GET /api/v1/ControllerMoto
 
 A API estará disponível em:
-https://localhost:7030/swagger
+👉 https://localhost:7030/swagger
 
-Endpoints e Exemplos
-Moto
+📑 Endpoints e Exemplos
 
-GET /api/ControllerMoto
+🔹 Health Check
 
-GET /api/ControllerMoto/{id}
+GET /api/v1/health/live
 
-GET /api/ControllerMoto/porPlaca?placa=ABC1234
+Response (200 OK)
 
-POST /api/ControllerMoto
+{
+  "status": "Healthy",
+  "checks": [
+    {
+      "name": "self",
+      "status": "Healthy"
+    },
+    {
+      "name": "Oracle Database",
+      "status": "Healthy"
+    }
+  ]
+}
 
-Request:
+
+📋 Descrição:
+Este endpoint foi adicionado na Sprint 4 e tem como objetivo verificar a integridade da aplicação e a conexão com o banco Oracle, 
+permitindo que o time de DevOps e QA monitore o status do sistema de forma rápida.
+
+<img width="433" height="343" alt="image" src="https://github.com/user-attachments/assets/fbcb378b-b7aa-4cfe-974a-cc5341caa753" />
+
+🔹 Admin
+
+Endpoints protegidos por JWT. Enviar o header:
+Authorization: Bearer {seu_token}
+
+Autenticação / Token
+
+POST /api/Admin/login
+
+Gestão de Usuários (Admin-only)
+POST /api/v1/Auth/login
+{
+    "username": "admin",
+    "password": "12345"
+}
+
+POST /api/Admin/usuarios
+
+<img width="1748" height="1147" alt="image" src="https://github.com/user-attachments/assets/adf7e9c0-0500-4fdd-8ba0-3feec1ccdf1a" />
+
+🔹 Moto
+
+GET /api/v1/ControllerMoto
+
+GET /api/v1/ControllerMoto/{id}
+
+GET /api/v1/ControllerMoto/porPlaca?placa=ABC1234
+
+PUT /api/v1/ControllerMoto/{id}
+
+DELETE /api/v1/ControllerMoto/{id}
+
+POST /api/v1/ControllerMoto
+
+Request (POST)
 
 {
   "idTipo": 2,
@@ -118,17 +169,24 @@ Request:
   "idNotaFiscal": null
 }
 
-Pátio
+<img width="1769" height="628" alt="image" src="https://github.com/user-attachments/assets/2b8a342a-c3d4-4abb-ab87-a673710d0f26" />
 
-GET /api/ControllerPatio
 
-GET /api/ControllerPatio/{id}
+🔹 Pátio
 
-GET /api/ControllerPatio/porNome?nome=Pátio
+GET /api/v1/ControllerPatio
 
-POST /api/ControllerPatio
+GET /api/v1/ControllerPatio/{id}
 
-Request:
+GET /api/v1/ControllerPatio/porNome?nome=Pátio
+
+PUT /api/v1/ControllerPatio/{id}
+
+DELETE /api/v1/ControllerPatio/{id}
+
+POST /api/v1/ControllerPatio
+
+Request (POST)
 
 {
   "idFilial": 1,
@@ -138,17 +196,50 @@ Request:
   "ativo": "S"
 }
 
-Endereço
+<img width="1767" height="558" alt="image" src="https://github.com/user-attachments/assets/000bbb01-38e0-403c-8dae-e51477300053" />
 
-GET /api/ControllerEndereco
 
-GET /api/ControllerEndereco/{id}
+🔹 Zona de Pátio
 
-GET /api/ControllerEndereco/porCidade?cidade=São Paulo
+GET /api/v1/ControllerZonaPatio
 
-POST /api/ControllerEndereco
+GET /api/v1/ControllerZonaPatio/{id}
 
-Request:
+GET /api/v1/ControllerZonaPatio/porNome?nomeZona=Zona A
+
+PUT /api/v1/ControllerZonaPatio/{id}
+
+DELETE /api/v1/ControllerZonaPatio/{id}
+
+POST /api/v1/ControllerZonaPatio
+
+Request (POST)
+
+{
+  "idPatio": 1,
+  "nomeZona": "Zona A",
+  "tipoZona": "ESTACIONAMENTO",
+  "capacidade": 20
+}
+
+<img width="1766" height="547" alt="image" src="https://github.com/user-attachments/assets/6307ffa7-fc66-4173-a0a4-0e46521dd494" />
+
+
+🔹 Endereço
+
+GET /api/v1/ControllerEndereco
+
+GET /api/v1/ControllerEndereco/{id}
+
+GET /api/v1/ControllerEndereco/porCidade?cidade=São Paulo
+
+PUT /api/v1/ControllerEndereco/{id}
+
+DELETE /api/v1/ControllerEndereco/{id}
+
+POST /api/v1/ControllerEndereco
+
+Request (POST)
 
 {
   "logradouro": "Av. Paulista",
@@ -161,17 +252,24 @@ Request:
   "pais": "Brasil"
 }
 
-Filial
+<img width="1742" height="1258" alt="image" src="https://github.com/user-attachments/assets/c62680bb-d713-4dd9-a7a9-9db91440a50c" />
 
-GET /api/ControllerFilial
 
-GET /api/ControllerFilial/{id}
+🔹 Filial
 
-GET /api/ControllerFilial/porNome?nome=SP
+GET /api/v1/ControllerFilial
 
-POST /api/ControllerFilial
+GET /api/v1/ControllerFilial/{id}
 
-Request:
+GET /api/v1/ControllerFilial/porNome?nome=SP
+
+PUT /api/v1/ControllerFilial/{id}
+
+DELETE /api/v1/ControllerFilial/{id}
+
+POST /api/v1/ControllerFilial
+
+Request (POST)
 
 {
   "nome": "Mottu São Paulo",
@@ -182,36 +280,24 @@ Request:
   "idEndereco": 1
 }
 
-Localização da Moto
+<img width="1772" height="580" alt="image" src="https://github.com/user-attachments/assets/f43de448-280a-4382-ad83-888d2ae26e1f" />
 
-GET /api/ControllerLocalizacaoMoto
 
-GET /api/ControllerLocalizacaoMoto/{id}
+🔹 Histórico de Localização
 
-GET /api/ControllerLocalizacaoMoto/porIdMoto?idMoto=1
+GET /api/v1/ControllerHistoricoLocalizacao
 
-POST /api/ControllerLocalizacaoMoto
+GET /api/v1/ControllerHistoricoLocalizacao/{id}
 
-Request:
+PUT /api/v1/ControllerHistoricoLocalizacao/{id}
 
-{
-  "idMoto": 1,
-  "idZona": 1,
-  "dataHoraEntrada": "2025-05-01T08:00:00",
-  "dataHoraSaida": null
-}
+GET /api/v1/ControllerHistoricoLocalizacao/porIdMoto?idMoto=1
 
-Histórico de Localização
+POST /api/v1/ControllerHistoricoLocalizacao
 
-GET /api/ControllerHistoricoLocalizacao
+DELETE /api/v1/ControllerHistoricoLocalizacao/{id}
 
-GET /api/ControllerHistoricoLocalizacao/{id}
-
-GET /api/ControllerHistoricoLocalizacao/porIdMoto?idMoto=1
-
-POST /api/ControllerHistoricoLocalizacao
-
-Request:
+Request (POST)
 
 {
   "idMoto": 1,
@@ -223,141 +309,208 @@ Request:
   "idStatusOperacao": 1
 }
 
-Health Check
-
-GET /api/v1/Health/live
-Verifica se a API está ativa.
-
-GET /api/v1/Health/ready
-Verifica se o Oracle e dependências estão disponíveis.
-
-Autenticação (JWT)
-
-POST /api/v1/Auth/login
-
-Request:
-
-{
-  "username": "admin",
-  "password": "12345"
-}
+<img width="1759" height="716" alt="image" src="https://github.com/user-attachments/assets/d102abe5-6b31-4c7b-adef-2502472ddfe6" />
 
 
-Response:
+🔹 Localização Moto
+
+GET /api/v1/ControllerLocalizacaoMoto
+
+GET /api/v1/ControllerLocalizacaoMoto/{id}
+
+GET /api/v1/ControllerLocalizacaoMoto/porIdMoto?idMoto=1
+
+PUT /api/v1/ControllerLocalizacaoMoto/{id}
+
+DELETE /api/v1/ControllerLocalizacaoMoto/{id}
+
+POST /api/v1/ControllerLocalizacaoMoto
+
+Request (POST)
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "idMoto": 1,
+  "idZona": 1,
+  "dataHoraEntrada": "2025-05-01T08:00:00",
+  "dataHoraSaida": null
 }
 
-Predição (ML.NET)
+<img width="1779" height="542" alt="image" src="https://github.com/user-attachments/assets/2ea8528e-af45-4067-9f1f-944e566c4831" />
 
-POST /api/v1/Predicao/consumo
-Prediz o consumo médio (km/L) de uma moto.
 
-Request:
+🔹 Motociclista
+
+GET /api/v1/ControllerMotociclista
+
+GET /api/v1/ControllerMotociclista/{id}
+
+GET /api/v1/ControllerMotociclista/porNome?nome=João
+
+PUT /api/v1/ControllerMotociclista/{id}
+
+DELETE /api/v1/ControllerMotociclista/{id}
+
+POST /api/v1/ControllerMotociclista
+
+Request (POST)
 
 {
-  "cilindrada": 160,
-  "peso": 120,
-  "velocidadeMedia": 80
+  "nome": "João da Silva",
+  "cpf": "12345678902",
+  "cnh": "SP12345777",
+  "dataValidadeCnh": "2030-01-01T00:00:00",
+  "telefone": "(11)98765-4333",
+  "email": "joaodasilva@email.com",
+  "dataCadastro": "2025-04-25T00:00:00",
+  "ativo": "S",
+  "idEndereco": 1
 }
 
+<img width="1768" height="605" alt="image" src="https://github.com/user-attachments/assets/a63aa21e-35e1-4288-b395-9792c9990236" />
 
-Response:
+
+🔹 Nota Fiscal
+
+GET /api/v1/ControllerNotaFiscal
+
+GET /api/v1/ControllerNotaFiscal/{id}
+
+GET /api/v1/ControllerNotaFiscal/porNumero?numero=12345
+
+PUT /api/v1/ControllerNotaFiscal/{id}
+
+DELETE /api/v1/ControllerNotaFiscal/{id}
+
+POST /api/v1/ControllerNotaFiscal
+
+Request (POST)
 
 {
-  "input": { "cilindrada": 160, "peso": 120, "velocidadeMedia": 80 },
-  "consumoPrevisto": 33.5,
-  "observacao": "Previsão gerada via modelo ML.NET"
+  "numero": "12348",
+  "serie": "1",
+  "modelo": "55",
+  "chaveAcesso": "35190304552144000125550010012345678901234570",
+  "dataEmissao": "2023-03-01T00:00:00",
+  "valorTotal": 150000,
+  "fornecedor": "Mottu Motors",
+  "cnpjFornecedor": "12345678000199"
 }
 
+<img width="1774" height="619" alt="image" src="https://github.com/user-attachments/assets/8d5f015f-a64f-461a-9223-91ef60b23d4d" />
 
-POST /api/v1/Predicao/treinar
-Treina o modelo ML.NET com novos dados.
 
-Request:
+🔹 Status Moto
+
+GET /api/v1/ControllerStatusMoto
+
+GET /api/v1/ControllerStatusMoto/{id}
+
+GET /api/v1/ControllerStatusMoto/porNome?nome=Disponível
+
+PUT /api/v1/ControllerStatusMoto/{id}
+
+DELETE /api/v1/ControllerStatusMoto/{id}
+
+POST /api/v1/ControllerStatusMoto
+
+Request (POST)
 
 {
-  "cilindrada": 160,
-  "peso": 125,
-  "velocidadeMedia": 70,
-  "consumoReal": 32.1
+  "id": 9,
+  "descricao": "Disponível",
+  "disponivel": "S"
 }
 
-Recomendação (ML.NET)
+<img width="1772" height="465" alt="image" src="https://github.com/user-attachments/assets/d81c3225-2992-49fb-8508-7a6b0751a197" />
 
-POST /api/v1/Recomendacao/moto
-Gera uma recomendação de moto para o usuário com base no perfil e afinidade.
 
-Request:
+🔹 Status Operação
+
+GET /api/v1/ControllerStatusOperacao
+
+GET /api/v1/ControllerStatusOperacao/{id}
+
+GET /api/v1/ControllerStatusOperacao/porDescricao?descricao=Locação
+
+PUT /api/v1/ControllerStatusOperacao/{id}
+
+DELETE /api/v1/ControllerStatusOperacao/{id}
+
+POST /api/v1/ControllerStatusOperacao
+
+Request (POST)
 
 {
-  "usuarioId": 1,
-  "motoId": 42
+  "descricao": "Locação",
+  "tipoMovimentacao": "SAIDA"
 }
 
+🔹 Tipo Moto
 
-Response:
+GET /api/v1/ControllerTipoMoto
+
+GET /api/v1/ControllerTipoMoto/{id}
+
+GET /api/v1/ControllerTipoMoto/porDescricao
+
+PUT /api/v1/ControllerTipoMoto{id}
+
+DELETE /api/v1/ControllerTipoMoto{id}
+
+POST /api/v1/ControllerTipoMoto
+
+Request (POST)
 
 {
-  "usuarioId": 1,
-  "motoId": 42,
-  "score": 0.873,
-  "observacao": "Score de afinidade gerado via modelo ML.NET"
+  "descricao": "Mottu Super Sport",
+  "categoria": "Super Esportiva"
 }
 
-Requisitos Atendidos
+<img width="1776" height="506" alt="image" src="https://github.com/user-attachments/assets/5a5aea58-eb2f-43c0-b66d-7697f45bee2d" />
+
+
+✅ Requisitos Atendidos
 
 CRUD completo para todas as entidades
 
-Paginação em listagens
+Paginação nas listagens
 
-Swagger com exemplos e documentação
+Swagger com exemplos de requests/responses
 
-DTOs e validações
+DTOs
 
 HATEOAS nos endpoints principais
 
-Health Checks (liveness e readiness)
+Validações e tratamento de erros
+
+Conexão com Oracle DB
 
 Autenticação JWT
 
-Endpoints com ML.NET (predição e recomendação)
+Versionamento da API
 
-Testes unitários e de integração (xUnit + Moq)
+Endpoint de Health Check
 
-Conexão com Oracle Database
-
-Testes
-Executar os testes
-dotnet test
-
-
-Os testes cobrem:
-
-Criação e consulta de entidades via Services e Controllers
-
-Mock de dependências com Moq
-
-Verificações de status HTTP
-
-Testes de integração com WebApplicationFactory
-
-Cobertura dos endpoints de CRUD, ML.NET e autenticação
-
-Conclusão
-
-Este projeto atende a todos os requisitos da Sprint 4 - Advanced Business Development with .NET,
-demonstrando domínio em:
-
-Arquitetura multicamadas
-
-Integração com Oracle via EF Core
-
-Documentação e versionamento de API
-
-Machine Learning (ML.NET)
+Endpoint com ML.NET
 
 Testes automatizados com xUnit
 
-Boas práticas de desenvolvimento e segurança (JWT, validações, Health Checks)
+Rate Limiting e Response Compression
+
+🧪 Testes Automatizados (xUnit)
+
+Os testes automatizados foram criados com o framework xUnit, cobrindo a lógica principal e os endpoints críticos da aplicação.
+
+Principais Tipos de Teste:
+
+✅ Testes unitários para regras de negócio (serviços e validações)
+
+✅ Testes de integração usando WebApplicationFactory
+
+✅ Testes com métodos assíncronos (async/await)
+
+✅ Uso de Assert.IsType e Assert.Contains
+
+✅ Estrutura de resposta encapsulada na propriedade Data
+
+✅ Tratamento seguro de UrlHelper nulo
